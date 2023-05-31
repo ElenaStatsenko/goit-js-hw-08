@@ -17,7 +17,7 @@ const refs = {
     refs.form.addEventListener ('input', onTextInput);
     function onTextInput(evt){
       formData[evt.target.name] = evt.target.value;
-      console.log(formData);
+
       localStorage.setItem('feedback-form-state', JSON.stringify(formData))
     }
     
@@ -27,9 +27,14 @@ const refs = {
    // const parsedFeedback = JSON.parse(savedFeedback);
    if (localStorage.getItem('feedback-form-state')) {
      const getFormData = JSON.parse(localStorage.getItem('feedback-form-state'));
-   console.log(getFormData);
+      
+   const newMail = getFormData.email;
+   const newMessage = getFormData.message;
+refs.email = newMail
+   console.log(refs.email.value);
    }
-    
+   
+  
 
 
     
