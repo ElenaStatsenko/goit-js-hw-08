@@ -7,7 +7,7 @@ const refs = {
  const formData = {};
 
  refs.form.addEventListener('submit', onFormSubmit);
-   savedTextInput(); 
+   // savedTextInput(); 
  
  function onFormSubmit (evt) {
     evt.preventDefault();
@@ -22,12 +22,15 @@ const refs = {
     }
     
 
-function savedTextInput() {
-   const savedFeedback = localStorage.getItem('feedback-form-state');
-   const parsedFeedback = JSON.parse(savedFeedback);
-   if (parsedFeedback) {console.log(parsedFeedback); 
+// function savedTextInput() {}
+   // const savedFeedback = localStorage.getItem('feedback-form-state');
+   // const parsedFeedback = JSON.parse(savedFeedback);
+   if (localStorage.getItem('feedback-form-state')) {
+     const getFormData = JSON.parse(localStorage.getItem('feedback-form-state'));
+   console.log(getFormData);
    }
-}
+    
+
 
     
    
