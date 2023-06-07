@@ -1,40 +1,35 @@
-const refs = {
-    form: document.querySelector('.feedback-form'),
-    email: document.querySelector('.feedback-form email'),
-    textarea: document.querySelector('.feedback-form textarea'),
-};
+import throttle from "lodash.throttle";
 
+  const form = document.querySelector('.feedback-form');
+   
+form.addEventListener('submit', onFormSubmit);
+form.addEventListener ('input', throttle(onFormData, 500));
+dataFromLocalStorage();
  const formData = {};
 
- refs.form.addEventListener('submit', onFormSubmit);
-   // savedTextInput(); 
- 
- function onFormSubmit (evt) {
-    evt.preventDefault();
-    evt.target.reset();
-    localStorage.removeItem('feedback-form-state');
- }
-    refs.form.addEventListener ('input', onTextInput);
-    function onTextInput(evt){
-      formData[evt.target.name] = evt.target.value;
+ function onFormData(evt){
+  formData[evt.target.name] = evt.target.value;
+  localStorage.setItem('feedback-form-state', JSON.stringify(formData));
+};
 
-      localStorage.setItem('feedback-form-state', JSON.stringify(formData))
-    }
+ function onFormSubmit (evt) {
+  console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
+    evt.preventDefault();
+    evt.currentTarget.reset();
+    localStorage.removeItem('feedback-form-state');
+  
+ }
     
 
-// function savedTextInput() {}
-   // const savedFeedback = localStorage.getItem('feedback-form-state');
-   // const parsedFeedback = JSON.parse(savedFeedback);
-   if (localStorage.getItem('feedback-form-state')) {
-     const getFormData = JSON.parse(localStorage.getItem('feedback-form-state'));
-      
-   const newMail = getFormData.email;
-   const newMessage = getFormData.message;
-refs.email = newMail
-   console.log(refs.email.value);
-   }
-   
-  
+function dataFromLocalStorage() {
+  const data = JSON.parse(localStorage.getItem('feedback-form-state'));
+  const email = document.querySelector('.feedback-form input');
+   const message = document.querySelector('.feedback-form textarea');
+   if (data) {
+    email.value = data.email;
+    message.value = data.message;
+  }
+};
 
 
     
